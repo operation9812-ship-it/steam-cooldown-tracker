@@ -1,11 +1,16 @@
 const { app, BrowserWindow } = require("electron");
 const { autoUpdater } = require("electron-updater");
-const path = require("path");
+
+let win;
 
 function createWindow() {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1200,
     height: 800,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   });
 
   win.loadFile("index.html");
@@ -14,7 +19,9 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
 
-  autoUpdater.checkForUpdatesAndNotify();
+  setTimeout(() => {
+    autoUpdater.checkForUpdatesAndNotify();
+  }, 3000);
 });
 
 autoUpdater.on("update-available", () => {
@@ -22,7 +29,8 @@ autoUpdater.on("update-available", () => {
 });
 
 autoUpdater.on("update-downloaded", () => {
-  console.log("Update downloaded, will install on restart.");
+  console.log("Update downloaded, installing...");
+  autoUpdater.quitAndInstall();
 });
 
 autoUpdater.on("error", (err) => {
