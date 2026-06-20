@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Steam Cooldown App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Steam Cooldown Tracker</h1>
+
+<input id="name" placeholder="Steam account name">
+<input id="note" placeholder="Note">
+<input id="cooldownInput" placeholder="e.g. 2h, 30m, 1h 30m, 7d">
+
+<input id="search" placeholder="Search account..." oninput="render()" />
+
+<button onclick="addAccount()">Add Account</button>
+
+<br><br>
+
+<button onclick="exportData()">Export Backup</button>
+<input type="file" onchange="importData(event)">
+
+<div id="list"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
